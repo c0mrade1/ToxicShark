@@ -1,2 +1,3 @@
-subprocess
+sockets
+subprocess.run
 colorama
